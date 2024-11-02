@@ -4,10 +4,13 @@ const PORT = 3000;
 
 const usuarios = [{id:1,nombre:'Juan Gomez',email:'jgomez@patito.com',telefono:'9990-0009'},{id:2,nombre:'Pedro Gonzalez',email:'pgonzalez@patito.com',telefono:'9991-0009'}];
 
+app.use(express.json());
+
 app.get('/', (req, res) => {
   res.send('¡Hola Mundo desde Express.js!');
 });
 
+// Filtro por ID
 app.get('/usuarios/:id',(req,res) =>{
     const id = parseInt(req.params.id);
     
@@ -26,11 +29,31 @@ app.get('/usuarios', (req,res)=>{
 });
 
 app.post('/usuarios', (req,res)=>{
-    res.send('¡Usuarios sin filtro desde el post!');
+    let usuario = req.body;
+    usuarios.push(usuario);
+    res.status(201).json({mensaje:'Registro exitoso',usuario});
 });
 
 app.put('/usuarios', (req,res)=>{
-    res.send('¡Actualización desde el put!');
+    
+    let usuario = req.body;
+    let exists = false;
+
+    usuarios.forEach(user => {
+        if(user.id === usuario.id){
+            exists = true;
+            user.nombre = usuario.nombre;
+            user.email = usuario.email;
+            user.telefono = usuario.telefono;
+        }
+    });
+
+    if(exists){
+        res.status(200).json({mensaje: 'Registro actualizado', usuario});
+    }else{
+        res.status(400).json({mensaje: 'Registro no encontrado'});
+    }
+    
 });
 
 app.listen(PORT, () => {

@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AHBEJA - Asociación Hondureña de Ex-Becarios de Japón</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            color: #333;
+            background-color: #f4f6f9;
+            scroll-behavior: smooth;
+        }
+        header {
+            background-color: #4167b0;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        header img {
+            width: 100px;
+            margin-bottom: 10px;
+            animation: fadeInDown 1s ease;
+        }
+        header h1 {
+            margin: 0;
+            font-size: 1.8em;
+            animation: fadeInDown 1s ease;
+        }
+        section {
+            padding: 40px 20px;
+            max-width: 900px;
+            margin: 0 auto;
+            background-color: #fff;
+            margin-bottom: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 1s ease forwards;
+        }
+        h2 {
+            color: #4167b0;
+            font-size: 1.6em;
+            margin-bottom: 10px;
+        }
+        /* Estilo de imagen para la directiva */
+        .directiva-imagen {
+            width: 100%;
+            max-width: 500px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            margin-top: 20px;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .galeria {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .galeria img {
+            width: calc(33.333% - 10px);
+            height: auto;
+            border-radius: 8px;
+            transition: transform 0.3s ease;
+        }
+        .galeria img:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        .boton-aprende {
+            background-color: #4167b0;
+            color: #fff;
+            padding: 12px 24px;
+            border: none;
+            cursor: pointer;
+            font-size: 1em;
+            border-radius: 5px;
+            margin: 20px;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s, transform 0.2s;
+            text-decoration: none;
+            display: inline-block;
+        }
+        .boton-aprende:hover {
+            background-color: #0056b3;
+            transform: translateY(-2px);
+        }
+        /* Estilos para la sección de contacto */
+        #contactanos {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: space-between;
+        }
+        .contact-info, .contact-map {
+            flex: 1;
+            min-width: 300px;
+            padding: 20px;
+            border-radius: 10px;
+            background-color: #f9f9f9;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+        .contact-info:hover, .contact-map:hover {
+            transform: translateY(-5px);
+        }
+        .contact-info h3, .contact-map h3 {
+            color: #4167b0;
+            font-size: 1.4em;
+            margin-top: 0;
+        }
+        .contact-info p {
+            font-size: 1.1em;
+            margin: 10px 0;
+        }
+        .contact-info a {
+            color: #4167b0;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            font-size: 1.2em;
+        }
+        .contact-info a i {
+            margin-right: 8px;
+        }
+        .contact-map iframe {
+            width: 100%;
+            height: 100%;
+            border-radius: 10px;
+            border: none;
+        }
+        @keyframes fadeInUp {
+            0% {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        @keyframes fadeInDown {
+            0% {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <img src="images/logo.png" alt="Logo AHBEJA">
+    <h1>AHBEJA - Asociación Hondureña de Ex-Becarios de Japón</h1>
+</header>
+
+<section id="nosotros">
+    <h2>Nosotros</h2>
+    <p>Somos una organización dedicada a promover la cultura y el aprendizaje del idioma japonés. Nos esforzamos por crear un espacio de aprendizaje y colaboración para todos los interesados en la cultura japonesa.</p>
+</section>
+
+<section id="directiva">
+    <h2>Directiva</h2>
+    <p>Conoce a nuestro equipo de directores, quienes lideran nuestra organización con dedicación y compromiso para ofrecer las mejores actividades y servicios.</p>
+    <!-- Imagen de la directiva -->
+    <img src="https://via.placeholder.com/500x400" alt="Foto de la Directiva" class="directiva-imagen">
+</section>
+
+<section id="galeria">
+    <h2>Galería</h2>
+    <div class="galeria">
+        <img src="https://via.placeholder.com/300x200" alt="Imagen 1">
+        <img src="https://via.placeholder.com/300x200" alt="Imagen 2">
+        <img src="https://via.placeholder.com/300x200" alt="Imagen 3">
+        <img src="https://via.placeholder.com/300x200" alt="Imagen 4">
+        <img src="https://via.placeholder.com/300x200" alt="Imagen 5">
+        <img src="https://via.placeholder.com/300x200" alt="Imagen 6">
+    </div>
+</section>
+
+<section id="actividades">
+    <h2>Actividades</h2>
+    <p>Ofrecemos actividades mensuales como talleres culturales, clases de japonés, y eventos sociales para que todos puedan participar y aprender.</p>
+</section>
+
+<section id="contactanos">
+    <h2>Contáctanos</h2>
+    <div class="contact-info">
+        <h3>Información de Contacto</h3>
+        <p><a href="https://www.facebook.com/AHBEJA" target="_blank"><i class="fab fa-facebook-square"></i> Síguenos en Facebook</a></p>
+        <p><a href="tel:+50412345678"><i class="fas fa-phone-alt"></i> +504 9979-1892</a></p>
+    </div>
+    <div class="contact-map">
+        <h3>Ubicación</h3>
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3869.526943280847!2d-87.18873072447161!3d14.105079889015434!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8f6fa2de6915b101%3A0x74fbdd1122c4106b!2sAHBEJA!5e0!3m2!1ses!2shn!4v1730428463864!5m2!1ses!2shn" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+    </div>
+</section>
+
+<div style="text-align: center;">
+    <!-- Enlace de Aprende Japonés con Nosotros -->
+    <a href="http://ahbeja.org.hn/m/#/login" class="boton-aprende" target="_blank">Aprende Japonés con Nosotros</a>
+</div>
+
+</body>
+</html>
