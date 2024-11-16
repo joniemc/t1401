@@ -1,10 +1,12 @@
 const express = require('express');
 const app = express();
+const cors = require('cors');
 const PORT = 3000;
 
 const usuarios = [{id:1,nombre:'Juan Gomez',email:'jgomez@patito.com',telefono:'9990-0009'},{id:2,nombre:'Pedro Gonzalez',email:'pgonzalez@patito.com',telefono:'9991-0009'}];
 
 app.use(express.json());
+app.use(cors());
 
 app.get('/', (req, res) => {
   res.send('¡Hola Mundo desde Express.js!');
@@ -28,17 +30,24 @@ app.get('/usuarios', (req,res)=>{
     res.json(usuarios);
 });
 
+app.get('/usuarios-nextid', (req,res)=>{
+    res.json(usuarios.length + 1);
+});
+
 app.post('/usuarios', (req,res)=>{
     let usuario = req.body;
     usuarios.push(usuario);
     res.status(201).json({mensaje:'Registro exitoso',usuario});
 });
 
+app.delete('/usuarios/:id', (req,res)=>{
+    // De tarea
+    res.status(200).json({mensaje:'Registro eliminado'});
+});
+
 app.put('/usuarios', (req,res)=>{
-    
     let usuario = req.body;
     let exists = false;
-
     usuarios.forEach(user => {
         if(user.id === usuario.id){
             exists = true;
