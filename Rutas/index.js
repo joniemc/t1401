@@ -31,7 +31,8 @@ app.get('/usuarios', (req,res)=>{
 });
 
 app.get('/usuarios-nextid', (req,res)=>{
-    res.json(usuarios.length + 1);
+    let lastUser = usuarios[usuarios.length-1]
+    res.json(lastUser.id + 1);
 });
 
 app.post('/usuarios', (req,res)=>{
@@ -41,7 +42,9 @@ app.post('/usuarios', (req,res)=>{
 });
 
 app.delete('/usuarios/:id', (req,res)=>{
-    // De tarea
+    const id = parseInt(req.params.id);
+    let index = usuarios.findIndex(us => us.id === id);
+    usuarios.splice(index,1);
     res.status(200).json({mensaje:'Registro eliminado'});
 });
 
