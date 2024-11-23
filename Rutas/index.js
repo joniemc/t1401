@@ -1,9 +1,26 @@
 const express = require('express');
 const app = express();
+const mysql = require('mysql2');
+
 const cors = require('cors');
-const PORT = 3000;
+const PORT = 3001;
 
 const productos = [{id:1,nombre:'Botella de Agua',precio:'$2',cantidad:'1'},{id:2,nombre:'Llavero',precio:'$6',cantidad:'2'}];
+
+const conexion = mysql.createConnection({
+    host:'localhost',
+    user:'root',
+    password:'root',
+    database:'db_fabricantes'
+});
+
+conexion.connect((err) => {
+    if(err){
+        console.error('Error de conexión a la base de datos',err);
+    }else{
+        console.log('Conexión exitosa...');
+    }
+});
 
 app.use(express.json());
 app.use(cors());
@@ -27,7 +44,15 @@ app.get('/productos/:id',(req,res) =>{
 
 //Devolver todos los productos en la base
 app.get('/productos', (req,res)=>{
-    res.json(productos);
+    const sql = 'select nombre, precio, codigo_fabricante, codigo from tr_producto';
+    conexion.query(sql, (err, resultado) =>{
+        if(err){
+            res.status(500).json({error:'Error al obtener los datos del producto'});
+        }else{
+            res.json(resultado);
+        }
+    });
+    
 });
 
 app.get('/usuarios-nextid', (req,res)=>{
