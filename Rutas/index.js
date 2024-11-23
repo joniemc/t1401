@@ -2,7 +2,7 @@ const express = require('express');
 const app = express();
 const PORT = 3000;
 
-const usuarios = [{id:1,nombre:'Juan Gomez',email:'jgomez@patito.com',telefono:'9990-0009'},{id:2,nombre:'Pedro Gonzalez',email:'pgonzalez@patito.com',telefono:'9991-0009'}];
+const productos = [{id:1,nombre:'Botella de Agua',precio:'$2',cantidad:'1'},{id:2,nombre:'Llavero',precio:'$6',cantidad:'2'}];
 
 app.use(express.json());
 
@@ -11,45 +11,45 @@ app.get('/', (req, res) => {
 });
 
 // Filtro por ID
-app.get('/usuarios/:id',(req,res) =>{
+app.get('/productos/:id',(req,res) =>{
     const id = parseInt(req.params.id);
     
-    let usuario = usuarios.find(us => us.id === id);
+    let producto = productos.find(us => us.id === id);
 
-    if(usuario){
-        res.json({mensaje:'Ok',usuario});
+    if(producto){
+        res.json({mensaje:'Ok',producto});
     }else{
-        res.status(400).json({mensaje:'usuario no encontrado'});
+        res.status(400).json({mensaje:'producto no encontrado'});
     }
 });
 
-//Devolver todos los usuarios en la base
-app.get('/usuarios', (req,res)=>{
-    res.json(usuarios);
+//Devolver todos los productos en la base
+app.get('/productos', (req,res)=>{
+    res.json(productos);
 });
 
-app.post('/usuarios', (req,res)=>{
-    let usuario = req.body;
-    usuarios.push(usuario);
-    res.status(201).json({mensaje:'Registro exitoso',usuario});
+app.post('/productos', (req,res)=>{
+    let producto = req.body;
+    productos.push(producto);
+    res.status(201).json({mensaje:'Registro exitoso',producto});
 });
 
-app.put('/usuarios', (req,res)=>{
+app.put('/productos', (req,res)=>{
     
-    let usuario = req.body;
+    let producto = req.body;
     let exists = false;
 
-    usuarios.forEach(user => {
-        if(user.id === usuario.id){
+    productos.forEach(prod => {
+        if(prod.id === producto.id){
             exists = true;
-            user.nombre = usuario.nombre;
-            user.email = usuario.email;
-            user.telefono = usuario.telefono;
+            prod.nombre = producto.nombre;
+            prod.precio = producto.precio;
+            prod.cantidad = producto.cantidad;
         }
     });
 
     if(exists){
-        res.status(200).json({mensaje: 'Registro actualizado', usuario});
+        res.status(200).json({mensaje: 'Registro actualizado', producto});
     }else{
         res.status(400).json({mensaje: 'Registro no encontrado'});
     }
