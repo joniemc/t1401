@@ -1,8 +1,9 @@
 const express = require('express');
 const app = express();
 const mysql = require('mysql2');
-
+const jwt = require('jsonwebtoken');
 const cors = require('cors');
+const SECRET_KEY = 'MiClaveSecreta';
 const PORT = 3001;
 
 const productos = [{id:1,nombre:'Botella de Agua',precio:'$2',cantidad:'1'},{id:2,nombre:'Llavero',precio:'$6',cantidad:'2'}];
@@ -22,9 +23,42 @@ conexion.connect((err) => {
     }
 });
 
+// Middleware para autenticación JWT, Seguridad en las API's
+const verificacarToken=(req, res, next) =>{
+    const authHeader = req.headers['authorization'];
+
+    if(!authHeader){
+        return res.status(401).json({mensaje:'Token no proporcionado'});
+    } 
+    
+    const token = authHeader.split(' ')[1];
+
+    jwt.verify(token, SECRET_KEY, (err, user)=>{
+        if(err){
+            return res.status(403).json({mensaje: 'Token inválido o expirado'});
+        }
+
+        req.user = user;
+
+        next();
+    });
+
+};
+
 app.use(express.json());
 app.use(cors());
 
+app.post('/login', (req, res) =>{
+    const {username, password} = req.body;
+
+    if(username === 'admin' && password === '1234'){
+        const token = jwt.sign({username}, SECRET_KEY, {expiresIn: '1h'});
+        res.json({mensaje:'Success',token});
+    }
+    else{
+        res.status(401).json({mensaje: 'Credenciales inválidas'});
+    }
+});
 app.get('/', (req, res) => {
   res.send('¡Hola Mundo desde Express.js!');
 });
@@ -43,7 +77,7 @@ app.get('/productos/:id',(req,res) =>{
 });
 
 //Devolver todos los productos en la base
-app.get('/productos', (req,res)=>{
+app.get('/productos', verificacarToken, (req,res)=>{
     const sql = 'select nombre, precio, codigo_fabricante, codigo from tr_producto';
     conexion.query(sql, (err, resultado) =>{
         if(err){
