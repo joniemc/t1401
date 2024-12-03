@@ -4,12 +4,26 @@ const cors = require('cors');
 
 require('dotenv').config();
 
+//Modulos Locales
+const authRoutes = require('./routes/authRoutes');
+
+
+
 const PORT = process.env.PORT || 3000;
 
 const productos = [{id:1,nombre:'Botella de Agua',precio:'$2',cantidad:'1'},{id:2,nombre:'Llavero',precio:'$6',cantidad:'2'}];
 
 app.use(express.json());
 app.use(cors());
+
+//Rutas
+app.use('/', authRoutes);
+
+// Manejo de errores global
+app.use((err, req, res, next) => {
+    console.error('Error global:', err.message);
+    res.status(500).json({ mensaje: 'Error interno del servidor' });
+  });
 
 app.get('/', (req, res) => {
   res.send('¡Hola Mundo desde Express.js!');
@@ -29,7 +43,7 @@ app.get('/productos/:id',(req,res) =>{
 });
 
 //Devolver todos los productos en la base
-app.get('/productos', verificacarToken, (req,res)=>{
+app.get('/productos', (req,res)=>{
     const sql = 'select nombre, precio, codigo_fabricante, codigo from tr_producto';
     conexion.query(sql, (err, resultado) =>{
         if(err){
