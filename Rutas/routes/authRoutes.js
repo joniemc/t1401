@@ -9,6 +9,7 @@ router.post('/login', (req, res) =>{
 
     const sql = "select * from tr_usuario where username=? and password=? and state='A'"
 
+    console.log(username+' ha intentado iniciar sesión');
     pool.query(sql, [username,password], (err, resultado)=>{
         if(err){
             return res.status(500).json({mensaje: 'Error ene l servidor'});
