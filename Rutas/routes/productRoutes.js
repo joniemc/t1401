@@ -10,7 +10,7 @@ router.get('/productos', authMiddleware, (req,res)=>{
         if(err){
             res.status(500).json({error:'Error al obtener los datos del producto'});
         }else{
-            res.json(resultado);
+            res.json({mensaje:'Solicitud exitosa', resultado});
         }
     });
 });

@@ -1,8 +1,18 @@
 const express = require('express');
 const bcrypt = require('bcrypt');
 const pool = require('../config/db');
+// const cors = require('cors'); // importar solamente si se quiere configurar permisos individuales
 const authMiddleware = require('../middleware/authMiddleware');
 const router = express.Router();
+
+//este bloque de configuración es solamente para proporcionar los cords a un api especifico
+// const loginOptionsConfig = {
+//     origin: 'http://localhost:4200',
+//     methots: ['POST'],
+//     allowedHeaders: ['Content-Type','Authorization']
+//   };
+
+// router.options('/usuarios',cors(loginOptionsConfig));
 
 router.get('/usuarios', authMiddleware, (req,res)=>{
     
@@ -10,6 +20,8 @@ router.get('/usuarios', authMiddleware, (req,res)=>{
     res.status(200).json({mensaje:'Todos los usuarios'});
 });
 
+// Esta linea seria la que se utiliza si quiero que esta api tenga habilitados los permisos cors
+// router.post('/usuarios', cors(loginOptionsConfig), async (req,res)=>{
 router.post('/usuarios', async (req,res)=>{
     const {username,plainPassword} = req.body;
 
