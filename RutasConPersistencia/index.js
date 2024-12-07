@@ -1,7 +1,13 @@
 const express = require('express');
 const fs = require('fs');
 const app = express();
-const PORT = 3000;
+
+require('dotenv').config();
+
+const authRoutes = require('./routes/authRoutes');
+const userRoutes = require('./routes/userRoutes');
+
+const PORT = process.env.PORT || 3000;
 
 function leerUsuarios(){
     const data = fs.readFileSync('Usuarios.json','utf-8');
@@ -31,10 +37,14 @@ app.get('/', (req, res) => {
 //     }
 // });
 
-// Devolver todos los usuarios en la base
-app.get('/usuarios', (req,res)=>{
-    const usuarios = leerUsuarios();
-    res.json(usuarios);
+// Rutas
+app.use('/api/auth', authRoutes); // Rutas de autenticación
+app.use('/api/user', userRoutes); // Rutas protegidas
+
+// Manejo de errores global
+app.use((err, req, res, next) => {
+  console.error('Error global:', err.message);
+  res.status(500).json({ mensaje: 'Error interno del servidor' });
 });
 
 app.post('/usuarios', (req,res)=>{

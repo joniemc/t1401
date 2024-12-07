@@ -1,0 +1,34 @@
+<h1>Lista de Productos</h1>
+<div class="mat-elevation-z8">
+    <table mat-table [dataSource]="dataSource" matSort class="full-width-table">
+      <!-- Columna Nombre -->
+      <ng-container matColumnDef="nombre">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Nombre </th>
+        <td mat-cell *matCellDef="let producto"> {{ producto.nombre }} </td>
+      </ng-container>
+  
+      <!-- Columna Precio -->
+      <ng-container matColumnDef="precio">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Precio </th>
+        <td mat-cell *matCellDef="let producto"> {{ producto.precio | currency }} </td>
+      </ng-container>
+  
+      <!-- Columna Código Fabricante -->
+      <ng-container matColumnDef="codigo_fabricante">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Código Fabricante </th>
+        <td mat-cell *matCellDef="let producto"> {{ producto.codigo_fabricante }} </td>
+      </ng-container>
+  
+      <!-- Columna Código -->
+      <ng-container matColumnDef="codigo">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Código </th>
+        <td mat-cell *matCellDef="let producto"> {{ producto.codigo }} </td>
+      </ng-container>
+  
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+  
+    <mat-paginator [pageSize]="5" [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+  </div>
+  
